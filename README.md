@@ -1,3 +1,4 @@
+]
 HabitFlow – Habit Tracker
 
 HabitFlow is a modern and responsive habit tracking web application designed to help users build better habits, maintain consistency, and track their daily progress.
