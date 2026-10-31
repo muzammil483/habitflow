@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HabitFlow - Free Habit Tracker with Streaks</title>
+<meta name="description" content="HabitFlow is a free habit tracker. Check off daily habits, build streaks, see your progress and share it on WhatsApp or Instagram. No signup needed.">
+<meta name="theme-color" content="#0f9f77">
+<meta property="og:type" content="website">
+<meta property="og:title" content="HabitFlow - Free Habit Tracker with Streaks">
+<meta property="og:description" content="Build daily habits, keep your streak alive and share your progress.">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.json">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem('habitFlow.theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="landing.css">
+<script src="landing.js" defer></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="#top" class="brand"><span class="logo-icon" aria-hidden="true">✓</span> HabitFlow</a>
+    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="siteNav">☰</button>
+    <nav class="site-nav" id="siteNav" aria-label="Site">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#about">About</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+      <a href="app.html" class="primary-btn">Open app</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Free. No signup. Works offline.</span>
+        <h1>Small habits, checked off every day.</h1>
+        <p class="lead">HabitFlow helps you build routines that last. Tick off today's habits, watch your streak grow and share it with friends.</p>
+        <div class="hero-actions">
+          <a href="app.html" class="primary-btn">Start tracking free</a>
+          <a href="#features" class="secondary-btn">See features</a>
+        </div>
+        <p class="hero-note">Your data stays on your device.</p>
+      </div>
+      <div class="habit-card mock" aria-hidden="true">
+        <div class="habit-top">
+          <div><div class="habit-name">Read 20 pages</div><div class="habit-description">Ten minutes before bed</div></div>
+          <span class="streak">🔥 21</span>
+        </div>
+        <div class="habit-meta">
+          <span class="badge category-badge">📚 Study</span>
+          <span class="badge streak-badge">🏆 Best 21</span>
+        </div>
+        <div class="week-history">
+          <div class="day done"><span>M</span><div class="day-circle">✓</div></div>
+          <div class="day done"><span>T</span><div class="day-circle">✓</div></div>
+          <div class="day done"><span>W</span><div class="day-circle">✓</div></div>
+          <div class="day done"><span>T</span><div class="day-circle">✓</div></div>
+          <div class="day done"><span>F</span><div class="day-circle">✓</div></div>
+          <div class="day done"><span>S</span><div class="day-circle">✓</div></div>
+          <div class="day today"><span>S</span><div class="day-circle"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="features">
+    <div class="wrap">
+      <h2>Everything you need to stay consistent</h2>
+      <p class="section-sub">Simple enough to use in two taps, with the extras that keep you going.</p>
+      <div class="feature-grid">
+        <article class="panel feature"><div class="stat-icon amber">🔥</div><h3>Streaks</h3><p>See your current and best streak for every habit.</p></article>
+        <article class="panel feature"><div class="stat-icon blue">📈</div><h3>Stats and heatmap</h3><p>Weekly charts, 30-day rates and a 12-week activity map.</p></article>
+        <article class="panel feature"><div class="stat-icon green">🔔</div><h3>Daily reminder</h3><p>Pick a time and get a nudge if habits are still pending.</p></article>
+        <article class="panel feature"><div class="stat-icon red">📤</div><h3>Share your streak</h3><p>Send it on WhatsApp or post a streak picture on Instagram.</p></article>
+        <article class="panel feature"><div class="stat-icon blue">📱</div><h3>Install on your phone</h3><p>Add it to your home screen. It also opens without internet.</p></article>
+        <article class="panel feature"><div class="stat-icon green">🌙</div><h3>Dark mode and backup</h3><p>Easy on the eyes at night. Export or import your data anytime.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="how">
+    <div class="wrap">
+      <h2>How it works</h2>
+      <p class="section-sub">Three steps, about a minute to set up.</p>
+      <ol class="steps">
+        <li><div class="step-no">1</div><h3>Add a habit</h3><p>Name it, pick a category and priority. Start with something small.</p></li>
+        <li><div class="step-no">2</div><h3>Check in daily</h3><p>Tap once when it is done. Missed a day? Tap the day circle to fix it.</p></li>
+        <li><div class="step-no">3</div><h3>Watch it grow</h3><p>Follow your streaks and charts, then share your best run.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="wrap about-grid">
+      <div>
+        <h2>About HabitFlow</h2>
+        <p class="section-sub" style="margin-bottom:14px">Built for people who want progress without the clutter.</p>
+        <p>HabitFlow started as a simple idea: a habit tracker that is quick, private and pleasant to open every day. No ads, no account and no complicated setup.</p>
+        <p>Everything you enter is saved in your own browser, so your habits remain yours. We keep improving it with features people actually ask for.</p>
+      </div>
+      <ul class="values">
+        <li><b>Private by default</b>No account. Your habits are stored on your device.</li>
+        <li><b>Fast and simple</b>One tap to check in. No clutter.</li>
+        <li><b>Built to last</b>Backup and restore so you never lose your streaks.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section alt" id="faq">
+    <div class="wrap">
+      <h2>Frequently asked questions</h2>
+      <p class="section-sub">Quick answers to common questions.</p>
+      <div class="faq">
+        <details><summary>Is HabitFlow free?</summary><p>Yes. You can use every feature for free and you do not need an account.</p></details>
+        <details><summary>Where is my data stored?</summary><p>In your browser on your device. Clearing browser data deletes it, so use Export in Settings to keep a backup.</p></details>
+        <details><summary>Will my data sync between phone and laptop?</summary><p>Not yet. For now, export a backup on one device and import it on the other.</p></details>
+        <details><summary>How do reminders work?</summary><p>Turn on the daily reminder in Settings and allow notifications. Reminders appear while HabitFlow is open in your browser or installed on your phone.</p></details>
+        <details><summary>How do I share my streak on Instagram?</summary><p>Tap the share button on a habit and choose Instagram. HabitFlow creates a streak picture. On phones it opens the share menu, and otherwise it saves the image so you can post it as a Story.</p></details>
+        <details><summary>Can I install it like an app?</summary><p>Yes. Open it in Chrome or Safari and choose Add to Home Screen (or Install).</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="wrap contact-grid">
+      <div>
+        <h2>Contact us</h2>
+        <p class="section-sub" style="margin-bottom:0">Questions, feedback or a feature idea? We would love to hear it.</p>
+        <ul class="contact-list">
+          <li>📧 <a href="mailto:muzammilpakistanim@gmail.com">muzammilpakistanim@gmail.com</a></li>
+          <li>💬 <a href="https://wa.me/923363430483" target="_blank" rel="noopener">Chat on WhatsApp</a></li>
+          
+        </ul>
+      </div>
+      <form class="panel" id="contactForm" novalidate>
+        <div class="form-group"><label for="cName">Your name</label><input type="text" id="cName" name="name" autocomplete="name" required></div>
+        <div class="form-group"><label for="cEmail">Email</label><input type="email" id="cEmail" name="email" autocomplete="email" required></div>
+        <div class="form-group"><label for="cMsg">Message</label><textarea id="cMsg" name="message" required></textarea></div>
+        <button class="primary-btn" type="submit">Send message</button>
+        <p class="form-note" id="formNote" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <h2>Ready to start your streak?</h2>
+      <p>It takes less than a minute to add your first habit.</p>
+      <a href="app.html" class="primary-btn">Open HabitFlow</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div><a href="#top" class="brand">HabitFlow</a><p>Build better habits, one day at a time.</p></div>
+      <div><h4>Product</h4><a href="#features">Features</a><a href="#how">How it works</a><a href="app.html">Open app</a></div>
+      <div><h4>Company</h4><a href="#about">About</a><a href="#faq">FAQ</a><a href="#contact">Contact</a></div>
+      <div><h4>Legal</h4><a href="legal.html#privacy">Privacy Policy</a><a href="legal.html#terms">Terms of Use</a></div>
+    </div>
+    <p class="copy">© <span id="year">2026</span> HabitFlow. All rights reserved.</p>
+  </div>
+</footer>
+</body>
+</html>

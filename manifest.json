@@ -1,0 +1,11 @@
+{
+  "name": "HabitFlow - Habit Tracker",
+  "short_name": "HabitFlow",
+  "description": "Track daily habits, build streaks and share your progress.",
+  "start_url": "app.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f3f5f2",
+  "theme_color": "#0f9f77",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

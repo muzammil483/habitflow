@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HabitFlow App - Daily Habit Tracker</title>
+<meta name="description" content="Track daily habits, build streaks and see your progress over time.">
+<meta name="theme-color" content="#0f9f77">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem('habitFlow.theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+<div class="app">
+
+  <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+    <div class="logo">
+      <div class="logo-icon" aria-hidden="true">✓</div>
+      <div><h2>HabitFlow</h2><span>Habit tracker</span></div>
+    </div>
+    <nav>
+      <a href="#dashboard" class="nav-link active" data-nav="dashboard"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg> Dashboard</a>
+      <a href="#habits" class="nav-link" data-nav="habits"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> My habits</a>
+      <a href="#statistics" class="nav-link" data-nav="statistics"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg> Statistics</a>
+      <a href="#settings" class="nav-link" data-nav="settings"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg> Settings</a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a href="index.html" class="nav-link"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 3l9 8M5 10v10h14V10"/></svg> Home page</a>
+      <button class="theme-btn" data-action="theme" type="button">
+        <span id="themeIcon" aria-hidden="true">🌙</span><span id="themeText">Dark mode</span>
+      </button>
+      <p class="shortcuts">Shortcuts: N new · / search · T theme</p>
+      <p>HabitFlow © 2026</p>
+    </div>
+  </aside>
+  <div class="overlay" id="overlay" data-action="menu"></div>
+
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <p class="welcome" id="greeting">Welcome back</p>
+        <h1>Build better habits.</h1>
+      </div>
+      <div class="top-actions">
+        <span id="todayDate" class="date-badge"></span>
+        <button class="mobile-menu" data-action="menu" type="button" aria-label="Open menu">☰</button>
+      </div>
+    </header>
+
+    <section id="dashboard" class="page-section">
+      <div class="section-heading">
+        <div><h2>Dashboard</h2><p>Your progress for today.</p></div>
+        <button class="primary-btn" data-action="add" type="button" title="Add habit (N)">+ Add habit</button>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-icon blue">📋</div><div><p>Total habits</p><h3 id="totalHabits">0</h3></div></div>
+        <div class="stat-card"><div class="stat-icon green">✓</div><div><p>Done today</p><h3 id="completedToday">0</h3></div></div>
+        <div class="stat-card"><div class="stat-icon amber">⏳</div><div><p>Left today</p><h3 id="pendingToday">0</h3></div></div>
+        <div class="stat-card"><div class="stat-icon red">🔥</div><div><p>Best streak</p><h3 id="bestStreak">0</h3></div></div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="panel">
+          <div class="panel-heading">
+            <div><h3>Today's progress</h3><p id="progressMessage">Add your first habit to begin.</p></div>
+            <div class="ring" aria-hidden="true"><svg viewBox="0 0 100 100"><circle class="ring-bg" cx="50" cy="50" r="42"/><circle class="ring-fill" id="ringFill" cx="50" cy="50" r="42"/></svg><strong id="progressText">0%</strong></div>
+          </div>
+          <div class="large-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressTrack">
+            <div id="overallProgressBar" class="large-progress-fill"></div>
+          </div>
+          <div class="progress-footer"><span><b id="progressCompleted">0</b> of <b id="progressTotal">0</b> completed</span></div>
+        </div>
+        <div class="panel">
+          <div class="panel-heading"><div><h3>Daily thought</h3><p>Changes every day</p></div></div>
+          <div class="insight-content"><span aria-hidden="true">💡</span><p id="motivationText"></p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="habits" class="page-section">
+      <div class="section-heading">
+        <div><h2>My habits</h2><p>Tap a day circle to fix a missed check-in.</p></div>
+      </div>
+      <div class="panel filters-panel">
+        <div class="search-box">
+          <span aria-hidden="true">🔍</span>
+          <input type="search" id="searchInput" placeholder="Search habits" aria-label="Search habits">
+        </div>
+        <select id="categoryFilter" aria-label="Filter by category">
+          <option value="all">All categories</option>
+          <option value="Study">📚 Study</option>
+          <option value="Health">🏃 Health</option>
+          <option value="Personal">👤 Personal</option>
+          <option value="Work">💼 Work</option>
+          <option value="Other">⭐ Other</option>
+        </select>
+        <select id="statusFilter" aria-label="Filter by status">
+          <option value="all">All status</option>
+          <option value="completed">Completed</option>
+          <option value="pending">Pending</option>
+        </select>
+        <select id="sortFilter" aria-label="Sort habits">
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+          <option value="name">Name A-Z</option>
+          <option value="streak">Best streak</option>
+        </select>
+      </div>
+      <div id="habitList" class="habit-grid" aria-busy="true">
+        <div class="skeleton-card"><span class="sk" style="width:60%"></span><span class="sk" style="width:40%"></span><span class="sk" style="height:44px"></span></div>
+        <div class="skeleton-card"><span class="sk" style="width:55%"></span><span class="sk" style="width:35%"></span><span class="sk" style="height:44px"></span></div>
+      </div>
+    </section>
+
+    <section id="statistics" class="page-section">
+      <div class="section-heading">
+        <div><h2>Statistics</h2><p>See how consistent you have been.</p></div>
+      </div>
+      <div class="statistics-grid">
+        <div class="panel">
+          <div class="panel-heading"><div><h3>Last 7 days</h3><p>Habits completed per day</p></div></div>
+          <div id="weeklyChart" class="weekly-chart"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-heading"><div><h3>Top habits</h3><p>Completion rate, last 30 days</p></div></div>
+          <div id="performanceList" class="performance-list"></div>
+        </div>
+      </div>
+      <div class="panel heat-panel">
+        <div class="panel-heading"><div><h3>Activity</h3><p>Last 12 weeks. Darker means more habits done.</p></div></div>
+        <div id="heatmap" class="heatmap"></div>
+      </div>
+    </section>
+
+    <section id="settings" class="page-section">
+      <div class="section-heading">
+        <div><h2>Settings</h2><p>Back up or reset your data. Everything is stored in this browser.</p></div>
+      </div>
+      <div class="settings-grid">
+        <div class="panel setting-card">
+          <div><h3>📤 Export data</h3><p>Download a JSON backup of your habits.</p></div>
+          <button class="secondary-btn" data-action="export" type="button">Export JSON</button>
+        </div>
+        <div class="panel setting-card">
+          <div><h3>📥 Import data</h3><p>Restore habits from a JSON backup. This replaces current data.</p></div>
+          <label class="secondary-btn file-label">Import JSON
+            <input type="file" id="importFile" accept=".json,application/json">
+          </label>
+        </div>
+        <div class="panel setting-card">
+          <div><h3>🔔 Daily reminder</h3><p id="reminderStatus">Off</p><p class="muted-note">Works while HabitFlow is open in your browser or installed on your phone.</p></div>
+          <div class="reminder-row">
+            <input type="time" id="reminderTime" value="20:00" aria-label="Reminder time">
+            <button class="secondary-btn" id="reminderBtn" data-action="reminder" type="button">Turn on</button>
+          </div>
+        </div>
+        <div class="panel setting-card danger-card">
+          <div><h3>🗑️ Clear all data</h3><p>Permanently delete every habit and its history.</p></div>
+          <button class="danger-btn" data-action="clear" type="button">Delete all habits</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<dialog id="habitDialog" aria-labelledby="modalTitle">
+  <form id="habitForm" class="modal-body" novalidate>
+    <div class="modal-header">
+      <div><h2 id="modalTitle">Add habit</h2><p>Pick something small you can repeat daily.</p></div>
+      <button type="button" class="close-btn" data-action="close" aria-label="Close">×</button>
+    </div>
+    <input type="hidden" id="editHabitId">
+    <div class="form-group">
+      <label for="habitName">Habit name</label>
+      <input type="text" id="habitName" maxlength="60" placeholder="e.g. Drink 2L water" required>
+      <small class="field-error" id="nameError" hidden></small>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="habitCategory">Category</label>
+        <select id="habitCategory">
+          <option value="Study">📚 Study</option>
+          <option value="Health">🏃 Health</option>
+          <option value="Personal">👤 Personal</option>
+          <option value="Work">💼 Work</option>
+          <option value="Other">⭐ Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="habitPriority">Priority</label>
+        <select id="habitPriority">
+          <option value="High">🔴 High</option>
+          <option value="Medium" selected>🟡 Medium</option>
+          <option value="Low">🟢 Low</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="habitDescription">Why does it matter? (optional)</label>
+      <textarea id="habitDescription" maxlength="200" placeholder="A short reminder for tough days"></textarea>
+    </div>
+    <div class="modal-actions">
+      <button type="button" class="secondary-btn" data-action="close">Cancel</button>
+      <button type="submit" class="primary-btn">Save habit</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="shareDialog" aria-labelledby="shareTitle">
+  <div class="modal-body">
+    <div class="modal-header">
+      <div><h2 id="shareTitle">Share your streak</h2><p>Show friends how consistent you are.</p></div>
+      <button type="button" class="close-btn" data-action="close-share" aria-label="Close">×</button>
+    </div>
+    <p class="share-preview" id="sharePreview"></p>
+    <div class="share-grid">
+      <button type="button" class="share-opt wa" data-action="share-wa">💬 WhatsApp</button>
+      <button type="button" class="share-opt ig" data-action="share-ig">📸 Instagram</button>
+      <button type="button" class="share-opt" data-action="share-copy">📋 Copy text</button>
+      <button type="button" class="share-opt" data-action="share-native">📤 More apps</button>
+    </div>
+    <p class="muted-note">Instagram does not accept pre-filled text, so HabitFlow makes a streak picture you can post as a Story.</p>
+  </div>
+</dialog>
+
+<div id="toasts" class="toasts" aria-live="polite"></div>
+</body>
+</html>
